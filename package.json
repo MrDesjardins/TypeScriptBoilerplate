@@ -1,0 +1,27 @@
+{
+  "name": "typescriptboilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for using TypeScript with a small web server. Ideal for testing small code in TypeScript.",
+  "main": "index.js", 
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Patrick Desjardins",
+  "devDependencies": {
+    "@types/requirejs": "^2.1.28",
+    "del": "^2.2.2",
+    "express": "^4.14.1",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-util": "^3.0.8",
+    "gulp-typescript": "^3.1.4",
+    "gulp-tslint": "^7.1.0",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5",
+    "typing": "^0.1.9"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "requirejs": "^2.3.2"
+  }
+}

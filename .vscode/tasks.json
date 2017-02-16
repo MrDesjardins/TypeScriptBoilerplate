@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "command": "gulp",
+    "isShellCommand": true,
+    "args": [
+        "--workspaceRoot",
+        "${workspaceRoot}",
+        "--fileDirname",
+        "${fileDirname}",
+        "--file",
+        "${file}"
+    ],
+    "tasks": [
+        {
+            "taskName": "buildsinglefile",
+            "isBuildCommand": true,
+            "args": []
+        }
+    ]
+}
