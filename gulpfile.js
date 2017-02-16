@@ -5,6 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
 const gutil = require('gulp-util');
+const connect = require('gulp-connect');
 //--- Configurations Constants ---
 
 var paths = {
@@ -40,6 +41,8 @@ gulp.task("copy", function () {
         gulp.src(paths.node_modules + modulesToMove[destinationDir])
             .pipe(gulp.dest(paths.modulesDestination + destinationDir));
     }
+
+    gulp.src("./app/index.html").pipe(gulp.dest(paths.webroot));
 });
 
 
@@ -51,7 +54,9 @@ gulp.task("build", function () {
     compilationResults.dts.pipe(gulp.dest(paths.typescript_out));
     return compilationResults.js
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.typescript_out));
+        .pipe(gulp.dest(paths.typescript_out))
+        .pipe(connect.reload());
+        ;
 });
 
 gulp.task("buildall", ["clean", "copy", "build"], function (callback) {
@@ -83,4 +88,20 @@ gulp.task("buildsinglefile", () => {
     return step1.js
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(pathWithoutFileNameForOutput));
+});
+
+gulp.task('watch', function() {
+    gulp.watch(paths.typescript_in + '/*.ts', ['build', 'livereload']);
+});
+
+gulp.task('server', function() {
+  connect.server({
+    root: 'deploy',
+    livereload: true,
+    port: 8080
+  });
+});
+
+gulp.task('go', ["server", "watch"], function() {
+
 });

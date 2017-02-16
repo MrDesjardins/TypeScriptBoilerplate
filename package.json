@@ -10,7 +10,6 @@
   "devDependencies": {
     "@types/requirejs": "^2.1.28",
     "del": "^2.2.2",
-    "express": "^4.14.1",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-util": "^3.0.8",
@@ -18,7 +17,8 @@
     "gulp-tslint": "^7.1.0",
     "tslint": "^4.4.2",
     "typescript": "^2.1.5",
-    "typing": "^0.1.9"
+    "typing": "^0.1.9",
+    "gulp-connect":"5.0.0"
   },
   "dependencies": {
     "jquery": "^3.1.1",

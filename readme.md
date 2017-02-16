@@ -7,7 +7,7 @@ Boilerplate for using TypeScript with a small web server. Ideal for testing smal
 - Gulp to build
 - Importing third-party (JS) available across scripts
 - Modules import + lazy loaded
-- Server with nodejs and Express
+- Server with watcher + autoreload
 
 ## Setup
 ```
@@ -19,5 +19,5 @@ gulp buildall
 ```
 ## Start
 ```
-node server.js
+gulp gonpm go
 ```
