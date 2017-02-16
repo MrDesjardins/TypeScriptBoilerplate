@@ -19,5 +19,5 @@ gulp buildall
 ```
 ## Start
 ```
-gulp gonpm go
+gulp go
 ```
