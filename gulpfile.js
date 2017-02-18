@@ -4,7 +4,6 @@ const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
-const gutil = require('gulp-util');
 const connect = require('gulp-connect');
 //--- Configurations Constants ---
 
