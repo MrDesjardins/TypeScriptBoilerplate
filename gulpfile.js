@@ -11,9 +11,7 @@ var paths = {
     webroot: "./deploy/",
     node_modules: "./node_modules/",
     typescript_in: "./app/scripts/",
-    typescript_out: "./deploy/output",
-    typings: "./typings/",
-    typescript_definitions: "./typings/main/**/*.ts"
+    typescript_out: "./deploy/output"
 };
 paths.allTypeScript = paths.typescript_in + "**/*.ts";
 paths.modulesDestination = paths.webroot + "vendors/";
@@ -29,10 +27,15 @@ gulp.task("clean", function (callback) {
     del(typeScriptGenFiles, callback);
 });
 
+gulp.task("purge", function (callback) {
+    del(paths.webroot + "**", callback);
+});
+
 gulp.task("copy", function () {
     var modulesToMove = {
         //"bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
         "jquery": "jquery/dist/jquery*.{js,map}",
+        "moment": "moment/src/*.{js,map}",
         "requirejs": "requirejs/*.{js,map}"
     }
 
@@ -46,7 +49,6 @@ gulp.task("copy", function () {
 
 
 gulp.task("build", function () {
-    var sourceTsFiles = [paths.typescript_in, paths.typescript_definitions];
     var compilationResults = tsProject.src()
         .pipe(sourcemaps.init())
         .pipe(tsProject())
@@ -101,6 +103,6 @@ gulp.task('server', function() {
   });
 });
 
-gulp.task('go', ["server", "watch"], function() {
+gulp.task('go', ["buildall", "server", "watch"], function() {
 
 });
