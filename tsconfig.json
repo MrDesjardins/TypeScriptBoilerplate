@@ -3,7 +3,11 @@
     "sourceMap": true,
     "target": "es6",
     "module": "amd",
-    "outDir": "./deploy/output"
+    "outDir": "./deploy/output",
+    "types": [
+      "jquery",
+      "requirejs"
+    ]
   },
   "include": [
     "app/scripts/**/*"
@@ -13,6 +17,7 @@
     "**/*.spec.ts"
   ],
   "files": [
-    "typings/index.d.ts"
+    "node_modules/@types/jquery/index.d.ts",
+    "node_modules/@types/requirejs/index.d.ts"
   ]
 }
