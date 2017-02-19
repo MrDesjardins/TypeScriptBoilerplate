@@ -6,7 +6,8 @@
     "outDir": "./deploy/output",
     "types": [
       "jquery",
-      "requirejs"
+      "requirejs",
+      "lodash"
     ]
   },
   "include": [
@@ -18,7 +19,6 @@
   ],
   "files": [
     "node_modules/@types/jquery/index.d.ts",
-    "node_modules/@types/requirejs/index.d.ts",
-    "node_modules/moment/moment.d.ts"
+    "node_modules/@types/requirejs/index.d.ts"
   ]
 }

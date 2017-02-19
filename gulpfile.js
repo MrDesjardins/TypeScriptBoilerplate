@@ -8,6 +8,7 @@ const connect = require('gulp-connect');
 //--- Configurations Constants ---
 
 var paths = {
+    sourceRoot : "./app/",
     webroot: "./deploy/",
     node_modules: "./node_modules/",
     typescript_in: "./app/scripts/",
@@ -35,12 +36,12 @@ gulp.task("copy", function () {
     var modulesToMove = {
         //"bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
         "jquery": "jquery/dist/jquery*.{js,map}",
-        "moment": "moment/src/*.{js,map}",
+        "lodash": "lodash/lodash*.{js,map}",
         "requirejs": "requirejs/*.{js,map}"
     }
 
     for (var destinationDir in modulesToMove) {
-        gulp.src(paths.node_modules + modulesToMove[destinationDir])
+        gulp.src(paths.node_mdules + modulesToMove[destinationDir])
             .pipe(gulp.dest(paths.modulesDestination + destinationDir));
     }
 
@@ -55,8 +56,7 @@ gulp.task("build", function () {
     compilationResults.dts.pipe(gulp.dest(paths.typescript_out));
     return compilationResults.js
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.typescript_out))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(paths.typescript_out));
         ;
 });
 
@@ -91,9 +91,24 @@ gulp.task("buildsinglefile", () => {
         .pipe(gulp.dest(pathWithoutFileNameForOutput));
 });
 
-gulp.task('watch', function() {
-    gulp.watch(paths.typescript_in + '/*.ts', ['build', 'livereload']);
+gulp.task('htmlreload', function () {
+  gulp.src(paths.sourceRoot + '*.html')
+    .pipe(connect.reload());
 });
+
+gulp.task('tsreload', function () {
+  gulp.src(paths.typescript_in + '*.ts')
+    .pipe(connect.reload());
+});
+
+
+gulp.task('watch', function (callback) {
+    gulp.watch(paths.typescript_in + '*.ts', ['build', 'tsreload']);
+    gulp.watch(paths.sourceRoot + '*.html', ['copy', 'htmlreload']); // Fast watch, no need to compile TS, just move the html into deploy
+    callback();
+});
+
+
 
 gulp.task('server', function() {
   connect.server({

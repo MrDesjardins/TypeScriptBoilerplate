@@ -1,12 +1,11 @@
 <html>
     <head>
-        <title>Test</title>
+        <title>TS Boilerplate v1.01</title>
     </head>
     <body>
     </body>
     <script src="vendors/requirejs/require.js"></script>
     <script src="vendors/jquery/jquery.js"></script>
-
     <script>
         requirejs.config({
             //Every script without folder specified before name will be looked in output folder
@@ -15,7 +14,7 @@
                 //Every script paths that start with "vendors/" will get loaded from the folder in string
                 vendors: 'vendors',
                 jquery: '../vendors/jquery/jquery',
-                moment: '../vendors/moment/moment'
+                lodash: "../vendors/lodash/lodash"
             }
         });
         //Startup file
