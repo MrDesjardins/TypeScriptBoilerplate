@@ -41,7 +41,7 @@ gulp.task("copy", function () {
     }
 
     for (var destinationDir in modulesToMove) {
-        gulp.src(paths.node_mdules + modulesToMove[destinationDir])
+        gulp.src(paths.node_modules + modulesToMove[destinationDir])
             .pipe(gulp.dest(paths.modulesDestination + destinationDir));
     }
 
@@ -57,7 +57,6 @@ gulp.task("build", function () {
     return compilationResults.js
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.typescript_out));
-        ;
 });
 
 gulp.task("buildall", ["clean", "copy", "build"], function (callback) {

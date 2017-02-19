@@ -16,9 +16,5 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ],
-  "files": [
-    "node_modules/@types/jquery/index.d.ts",
-    "node_modules/@types/requirejs/index.d.ts"
   ]
 }
