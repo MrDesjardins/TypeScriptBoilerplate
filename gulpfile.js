@@ -5,21 +5,23 @@ const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
 const connect = require('gulp-connect');
-//--- Configurations Constants ---
 
+//--------------- Configurations Constants ------------
+
+const server_port = 8080;
 var paths = {
     sourceRoot : "./app/",
     webroot: "./deploy/",
     node_modules: "./node_modules/",
-    typescript_in: "./app/scripts/",
-    typescript_out: "./deploy/output"
 };
 paths.allTypeScript = paths.typescript_in + "**/*.ts";
 paths.modulesDestination = paths.webroot + "vendors/";
+paths.typescript_in = paths.sourceRoot + "scripts/";
+paths.typescript_out = paths.webroot + "output"
 
-//--- Task ---
+//------------------------ Tasks ------------------------
 
-gulp.task("clean", function (callback) {
+gulp.task("clean", (callback) => {
     var typeScriptGenFiles = [
         paths.typescript_out + "/**/*.js",
         paths.typescript_out + "/**/*.js.map"
@@ -28,11 +30,11 @@ gulp.task("clean", function (callback) {
     del(typeScriptGenFiles, callback);
 });
 
-gulp.task("purge", function (callback) {
+gulp.task("purge", (callback) => {
     del(paths.webroot + "**", callback);
 });
 
-gulp.task("copy", function () {
+gulp.task("copy", () => {
     var modulesToMove = {
         //"bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
         "jquery": "jquery/dist/jquery*.{js,map}",
@@ -48,8 +50,7 @@ gulp.task("copy", function () {
     gulp.src("./app/index.html").pipe(gulp.dest(paths.webroot));
 });
 
-
-gulp.task("build", function () {
+gulp.task("build", () => {
     var compilationResults = tsProject.src()
         .pipe(sourcemaps.init())
         .pipe(tsProject())
@@ -62,7 +63,6 @@ gulp.task("build", function () {
 gulp.task("buildall", ["clean", "copy", "build"], function (callback) {
     callback();
 });
-
 
 gulp.task("tslint", () => {
     return gulp.src(['**/*.ts', '!**/*.d.ts', '!node_modules/**'])
@@ -90,33 +90,30 @@ gulp.task("buildsinglefile", () => {
         .pipe(gulp.dest(pathWithoutFileNameForOutput));
 });
 
-gulp.task('htmlreload', function () {
+gulp.task('htmlreload', () => {
   gulp.src(paths.sourceRoot + '*.html')
     .pipe(connect.reload());
 });
 
-gulp.task('tsreload', function () {
+gulp.task('tsreload', () => {
   gulp.src(paths.typescript_in + '*.ts')
     .pipe(connect.reload());
 });
 
-
-gulp.task('watch', function (callback) {
+gulp.task('watch', (callback) => {
     gulp.watch(paths.typescript_in + '*.ts', ['build', 'tsreload']);
     gulp.watch(paths.sourceRoot + '*.html', ['copy', 'htmlreload']); // Fast watch, no need to compile TS, just move the html into deploy
     callback();
 });
 
-
-
-gulp.task('server', function() {
+gulp.task('server', () => {
   connect.server({
-    root: 'deploy',
+    root: paths.webroot,
     livereload: true,
-    port: 8080
+    port: server_port
   });
 });
 
-gulp.task('go', ["buildall", "server", "watch"], function() {
+gulp.task('go', ["buildall", "server", "watch"], () => {
 
 });
