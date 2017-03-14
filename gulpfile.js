@@ -5,6 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
 const connect = require('gulp-connect');
+const changed = require('gulp-cached');
 
 //--------------- Configurations Constants ------------
 
@@ -14,10 +15,11 @@ var paths = {
     webroot: "./deploy/",
     node_modules: "./node_modules/",
 };
-paths.allTypeScript = paths.typescript_in + "**/*.ts";
+
 paths.modulesDestination = paths.webroot + "vendors/";
 paths.typescript_in = paths.sourceRoot + "scripts/";
 paths.typescript_out = paths.webroot + "output"
+paths.allTypeScript = paths.typescript_in + "**/*.ts";
 
 //------------------------ Tasks ------------------------
 
@@ -51,7 +53,7 @@ gulp.task("copy", () => {
 });
 
 gulp.task("build", () => {
-    var compilationResults = tsProject.src()
+    var compilationResults = gulp.src(paths.typescript_in+"**/*.ts")
         .pipe(sourcemaps.init())
         .pipe(tsProject())
     compilationResults.dts.pipe(gulp.dest(paths.typescript_out));
@@ -101,7 +103,17 @@ gulp.task('tsreload', () => {
 });
 
 gulp.task('watch', (callback) => {
-    gulp.watch(paths.typescript_in + '*.ts', ['build', 'tsreload']);
+    gulp.watch(paths.allTypeScript).on("change", function(file) {
+        var compilationResults = gulp.src(paths.allTypeScript)
+            .pipe(changed(paths.typescript_out))
+            .pipe(sourcemaps.init())
+            .pipe(tsProject())
+        compilationResults.dts.pipe(gulp.dest(paths.typescript_out));
+        compilationResults.js
+            .pipe(sourcemaps.write('.'))
+            .pipe(gulp.dest(paths.typescript_out))
+            .pipe(connect.reload());
+    });
     gulp.watch(paths.sourceRoot + '*.html', ['copy', 'htmlreload']); // Fast watch, no need to compile TS, just move the html into deploy
     callback();
 });

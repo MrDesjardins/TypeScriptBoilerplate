@@ -10,9 +10,6 @@
       "lodash"
     ]
   },
-  "include": [
-    "app/scripts/**/*"
-  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

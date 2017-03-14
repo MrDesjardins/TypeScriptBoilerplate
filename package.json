@@ -2,10 +2,10 @@
   "name": "typescriptboilerplate",
   "version": "1.0.0",
   "description": "Boilerplate for using TypeScript with a small web server. Ideal for testing small code in TypeScript.",
-  "main": "index.html", 
+  "main": "index.html",
   "repository": {
-    "type" : "git"
-  , "url" : "https://github.com/MrDesjardins/TypeScriptBoilerplate.git"
+    "type": "git",
+    "url": "https://github.com/MrDesjardins/TypeScriptBoilerplate.git"
   },
   "license": "BSD-3-Clause",
   "scripts": {
@@ -13,21 +13,22 @@
   },
   "author": "Patrick Desjardins",
   "devDependencies": {
-    "@types/requirejs": "^2.1.28",
-    "@types/jquery": "2.0.40",
-    "@types/lodash": "4.14.52",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.4.0",
-    "gulp-typescript": "^3.1.4",
-    "gulp-tslint": "^7.1.0",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.6",
-    "gulp-connect":"5.0.0"
+    "@types/jquery": "latest",
+    "@types/lodash": "latest",
+    "@types/requirejs": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-cached": "latest",
+    "gulp-connect": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-tslint": "latest",
+    "gulp-typescript": "latest",
+    "tslint": "latest",
+    "typescript": "next"
   },
   "dependencies": {
-    "jquery": "^3.1.1",
-    "requirejs": "^2.3.2",
-    "lodash": "4.17.4"
+    "jquery": "latest",
+    "requirejs": "latest",
+    "lodash": "latest"
   }
 }
